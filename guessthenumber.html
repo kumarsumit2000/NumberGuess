@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the number</title>
+</head>
+<style>
+    body{
+        background: black;
+    }
+    .container{
+        background: #212121;
+        width: 400px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+        margin-top: 50px;
+        color: white;
+        padding: 20px;
+        border-radius: 25px;
+        box-shadow: 5px 5px 15px white;
+    }
+    form{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+    form label{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    form button{
+        margin-top: 50px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+    form button,input{
+       padding: 10px;
+    }
+#guesses{
+    display: flex;
+    flex-direction: column;
+}
+    .resetBtn{
+     margin-top: 10px;
+     padding: 10px;
+     cursor: pointer;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Guess The Number b/w 1-99</h1>
+        <form>
+            <label><span>Select a number(1-99)*</span><span><input type="number" placeholder="1, 2, 3, 4...." id="selectedNumber"></span></label>
+            <button type="submit" id="submit">Check The Guess</button>
+        </form>
+        <div id="result"></div>
+        <div id="guesses"></div>
+    </div>
+</body>
+<script>
+    const randNumber = parseInt(Math.random()*100)+1;
+    let i = 0;
+    let allGuesseNumbers = [];
+    let guesses = document.querySelector("#guesses");
+    console.log(randNumber);
+    let numberform = document.querySelector("form");
+    let result = document.querySelector("#result");
+    numberform.addEventListener("submit", (e) =>{
+    e.preventDefault();
+    i++;
+    let selectedNumber = document.getElementById("selectedNumber").value;
+    let submit = document.querySelector("#submit");
+    
+    if(selectedNumber > 99 || selectedNumber <= 0 || selectedNumber ==""){
+     alert("Please select a b/t from 1 - 99");
+    }else{
+        allGuesseNumbers.push(selectedNumber);
+    if(randNumber === parseInt(selectedNumber)){
+        result.innerHTML = "<h2>You are right, You Won the game</h2>";
+        result.style.color = "Green";
+    }else{
+        result.innerHTML = "<h2>You are wrong, Better luck next time</h2>";
+        result.style.color = "red";
+    }
+}
+
+// button disabled after 5 click
+if(i == 5){
+submit.disabled = true;
+guesses.innerHTML = `<span>Your Guesses: ${allGuesseNumbers.join()}</span>`;
+let resetBtn = document.createElement("button");
+resetBtn.textContent = "RESET GAME";
+resetBtn.setAttribute("class","resetBtn")
+guesses.appendChild(resetBtn);
+resetBtn.addEventListener("click",() =>{
+    window.location.reload()
+})
+}
+
+
+})
+
+</script>
+</html>
