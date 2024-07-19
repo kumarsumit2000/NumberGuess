@@ -11,13 +11,12 @@
     let result = document.querySelector("#result");
     numberform.addEventListener("submit", (e) =>{
     e.preventDefault();
-    i++;
     let selectedNumber = document.getElementById("selectedNumber").value;
     let submit = document.querySelector("#submit");
-    
     if(selectedNumber > 99 || selectedNumber <= 0 || selectedNumber ==""){
      alert("Please select a b/t from 1 - 99");
     }else{
+        i++;
         allGuesseNumbers.push(selectedNumber);
     if(randNumber === parseInt(selectedNumber)){
         result.innerHTML = "<h2>You are right, You Won the game</h2>";
